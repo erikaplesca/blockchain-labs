@@ -1,0 +1,6 @@
+FidelityGasTest:test_AddPoints() (gas: 44540)
+FidelityGasTest:test_AddPoints10Clients() (gas: 552600)
+FidelityGasTest:test_Redeem() (gas: 83398)
+FidelityGasTest:test_RevertWhen_NotAdmin() (gas: 35964)
+FidelityGasTest:test_RevertWhen_SpendTooMuch() (gas: 37279)
+FidelityGasTest:test_SpendPoints() (gas: 46995)

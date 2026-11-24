@@ -1,0 +1,33 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  forge:
+    name: ${{ matrix.lab }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        lab:
+          - labs/lab04-contract-interaction
+          - labs/lab05-erc20-tokens
+          - labs/lab06-ether-reentrancy
+          - labs/lab07-shop-dapp/contracts
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: foundry-rs/foundry-toolchain@v1
+      - name: forge build
+        working-directory: ${{ matrix.lab }}
+        run: forge build --sizes
+      - name: forge test
+        working-directory: ${{ matrix.lab }}
+        run: forge test -vvv

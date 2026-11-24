@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="Povestea contractului FidelityPoints de la Lab 3 la Lab 7">
+  <defs>
+    <radialGradient id="orbA" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7fb0ee"/>
+      <stop offset="50%" stop-color="#7fb0ee" stop-opacity=".85"/>
+      <stop offset="74%" stop-color="#f3c6a8" stop-opacity=".85"/>
+      <stop offset="96%" stop-color="#f3c6a8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orbB" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#b9a6e6"/>
+      <stop offset="55%" stop-color="#b9a6e6" stop-opacity=".8"/>
+      <stop offset="80%" stop-color="#7fb0ee" stop-opacity=".6"/>
+      <stop offset="98%" stop-color="#7fb0ee" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orbC" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f3c6a8"/>
+      <stop offset="55%" stop-color="#f3c6a8" stop-opacity=".8"/>
+      <stop offset="80%" stop-color="#efc9cf" stop-opacity=".7"/>
+      <stop offset="98%" stop-color="#efc9cf" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" filterUnits="userSpaceOnUse" x="-200" y="-200" width="1680" height="1040">
+      <feGaussianBlur stdDeviation="38"/>
+    </filter>
+    <clipPath id="frame"><rect width="1280" height="640" rx="28"/></clipPath>
+  </defs>
+  <g clip-path="url(#frame)">
+  <rect width="1280" height="640" fill="#f4f3f0"/>
+  <g opacity="1" filter="url(#blur)">
+    <circle cx="160" cy="80" r="160" fill="url(#orbC)"/>
+    <circle cx="1150" cy="560" r="190" fill="url(#orbA)"/>
+    <circle cx="640" cy="640" r="140" fill="url(#orbB)"/>
+  </g>
+  <text x="64" y="84" font-family="'DM Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace" font-size="17" letter-spacing=".7" fill="#66645f">povestea unui contract · lab 03 → 07</text>
+  <text x="64" y="132" font-family="'Playfair Display', 'Iowan Old Style', Georgia, 'Times New Roman', serif" font-size="38" fill="#141414">Același <tspan font-style="italic" fill="#1f2a48">FidelityPoints</tspan>, lab după lab.</text>
+  <rect x="64.0" y="178" width="266" height="236" rx="22" fill="#faf9f6" fill-opacity=".66" stroke="#141414" stroke-opacity=".08" stroke-dasharray="5 6"/>
+  <text x="88.0" y="218" font-family="'DM Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#66645f">lab 03</text>
+  <circle cx="302.0" cy="213" r="6" fill="#66645f" fill-opacity=".5"/>
+  <text font-family="'Playfair Display', 'Iowan Old Style', Georgia, 'Times New Roman', serif" font-size="29" fill="#141414"><tspan x="88.0" y="262">Punctele de</tspan><tspan x="88.0" y="296" font-style="italic" fill="#1f2a48">fidelitate.</tspan></text>
+  <circle cx="92.0" cy="329" r="2.5" fill="#66645f"/>
+  <text x="104.0" y="334" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">FidelityPoints + Catalog</text>
+  <circle cx="92.0" cy="354" r="2.5" fill="#66645f"/>
+  <text x="104.0" y="359" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">addPoints, spendPoints</text>
+  <circle cx="92.0" cy="379" r="2.5" fill="#66645f"/>
+  <text x="104.0" y="384" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">punctul de plecare</text>
+  <line x1="338.0" y1="296.0" x2="347.3333333333333" y2="296.0" stroke="#1f2a48" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M341.3333333333333 290.0 L351.3333333333333 296.0 L341.3333333333333 302.0" fill="none" stroke="#1f2a48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="359.3333333333333" y="178" width="266" height="236" rx="22" fill="#faf9f6" fill-opacity=".66" stroke="#141414" stroke-opacity=".08" />
+  <text x="383.3333333333333" y="218" font-family="'DM Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#66645f">lab 04</text>
+  <circle cx="597.3333333333333" cy="213" r="6" fill="#855712" fill-opacity="1"/>
+  <text font-family="'Playfair Display', 'Iowan Old Style', Georgia, 'Times New Roman', serif" font-size="29" fill="#141414"><tspan x="383.3333333333333" y="262">Contractele</tspan><tspan x="383.3333333333333" y="296" font-style="italic" fill="#1f2a48">vorbesc.</tspan></text>
+  <circle cx="387.3333333333333" cy="329" r="2.5" fill="#66645f"/>
+  <text x="399.3333333333333" y="334" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">redeem: puncte → produse</text>
+  <circle cx="387.3333333333333" cy="354" r="2.5" fill="#66645f"/>
+  <text x="399.3333333333333" y="359" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">try/catch, events, errors</text>
+  <circle cx="387.3333333333333" cy="379" r="2.5" fill="#66645f"/>
+  <text x="399.3333333333333" y="384" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">packing: addProduct −27% gas</text>
+  <line x1="633.3333333333333" y1="296.0" x2="642.6666666666666" y2="296.0" stroke="#1f2a48" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M636.6666666666666 290.0 L646.6666666666666 296.0 L636.6666666666666 302.0" fill="none" stroke="#1f2a48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="654.6666666666666" y="178" width="266" height="236" rx="22" fill="#faf9f6" fill-opacity=".66" stroke="#141414" stroke-opacity=".08" />
+  <text x="678.6666666666666" y="218" font-family="'DM Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#66645f">lab 05</text>
+  <circle cx="892.6666666666666" cy="213" r="6" fill="#2c6649" fill-opacity="1"/>
+  <text font-family="'Playfair Display', 'Iowan Old Style', Georgia, 'Times New Roman', serif" font-size="29" fill="#141414"><tspan x="678.6666666666666" y="262">Punctele devin</tspan><tspan x="678.6666666666666" y="296" font-style="italic" fill="#1f2a48">token.</tspan></text>
+  <circle cx="682.6666666666666" cy="329" r="2.5" fill="#66645f"/>
+  <text x="694.6666666666666" y="334" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">ERC-20 FPT cu OpenZeppelin</text>
+  <circle cx="682.6666666666666" cy="354" r="2.5" fill="#66645f"/>
+  <text x="694.6666666666666" y="359" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">badge ERC-721 în BadgeShop</text>
+  <circle cx="682.6666666666666" cy="379" r="2.5" fill="#66645f"/>
+  <text x="694.6666666666666" y="384" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">FeeToken: 1% prin _update</text>
+  <line x1="928.6666666666666" y1="296.0" x2="938.0" y2="296.0" stroke="#1f2a48" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M932.0 290.0 L942.0 296.0 L932.0 302.0" fill="none" stroke="#1f2a48" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="950.0" y="178" width="266" height="236" rx="22" fill="#faf9f6" fill-opacity=".66" stroke="#141414" stroke-opacity=".08" />
+  <text x="974.0" y="218" font-family="'DM Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#66645f">lab 07</text>
+  <circle cx="1188.0" cy="213" r="6" fill="#855712" fill-opacity="1"/>
+  <text font-family="'Playfair Display', 'Iowan Old Style', Georgia, 'Times New Roman', serif" font-size="29" fill="#141414"><tspan x="974.0" y="262">Ajung în</tspan><tspan x="974.0" y="296" font-style="italic" fill="#1f2a48">browser.</tspan></text>
+  <circle cx="978.0" cy="329" r="2.5" fill="#66645f"/>
+  <text x="990.0" y="334" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">React + ethers v6 + MetaMask</text>
+  <circle cx="978.0" cy="354" r="2.5" fill="#66645f"/>
+  <text x="990.0" y="359" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">sold live din events</text>
+  <circle cx="978.0" cy="379" r="2.5" fill="#66645f"/>
+  <text x="990.0" y="384" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">spendPoints, fără leaks</text>
+  <path d="M492.3333333333333 420 C492.3333333333333 494, 492.33333333333326 532.0, 526.3333333333333 532.0" fill="none" stroke="#b9a6e6" stroke-width="2.2" stroke-dasharray="3 7" stroke-linecap="round"/>
+  <rect x="532.3333333333333" y="474" width="640" height="116" rx="22" fill="#faf9f6" fill-opacity=".66" stroke="#141414" stroke-opacity=".08" />
+  <text x="556.3333333333333" y="512" font-family="'DM Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace" font-size="14" fill="#66645f">lab 06 · ocol</text>
+  <circle cx="1144.3333333333333" cy="507" r="6" fill="#2c6649"/>
+  <text x="556.3333333333333" y="552" font-family="'Playfair Display', 'Iowan Old Style', Georgia, 'Times New Roman', serif" font-size="27" fill="#141414">Ether și <tspan font-style="italic" fill="#1f2a48">securitate.</tspan></text>
+  <circle cx="842.3333333333333" cy="509" r="2.5" fill="#66645f"/>
+  <text x="854.3333333333333" y="514" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">receive / fallback</text>
+  <circle cx="842.3333333333333" cy="534" r="2.5" fill="#66645f"/>
+  <text x="854.3333333333333" y="539" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">re-entrancy + nonReentrant</text>
+  <circle cx="842.3333333333333" cy="559" r="2.5" fill="#66645f"/>
+  <text x="854.3333333333333" y="564" font-family="'Hanken Grotesk', -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#141414" fill-opacity=".86">pull over push: 230k vs 427k gas</text>
+  <circle cx="70" cy="498" r="6" fill="#2c6649" fill-opacity="1"/>
+  <text x="84" y="502" font-family="'DM Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#66645f">gata</text>
+  <circle cx="70" cy="528" r="6" fill="#855712" fill-opacity="1"/>
+  <text x="84" y="532" font-family="'DM Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#66645f">aproape</text>
+  <circle cx="70" cy="558" r="6" fill="#66645f" fill-opacity=".5"/>
+  <text x="84" y="562" font-family="'DM Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="#66645f">primit, de recuperat</text>
+
+  </g>
+</svg>
