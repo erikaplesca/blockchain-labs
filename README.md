@@ -78,7 +78,9 @@ cd blockchain-labs/labs/lab06-ether-reentrancy
 forge test
 ```
 
-Dacă ai clonat fără `--recursive`, rulează `git submodule update --init --recursive`. Pentru Foundry: `curl -L https://foundry.paradigm.xyz | bash && foundryup`. Lab 7 are nevoie și de Node.js: pașii sunt în [README-ul lui](labs/lab07-shop-dapp/).
+Dacă ai clonat fără `--recursive`, rulează `git submodule update --init --recursive`.
+
+**Setup pe Mac, pas cu pas:** fiecare lab are în README-ul lui o secțiune *Setup pe Mac*, cu ce instalezi, cum creezi proiectul din `starter/` și cum pornești `anvil`. Ordinea bună: [00-setup](labs/00-setup/#setup-pe-mac) (Foundry și diferențele față de Linux), apoi [Lab 02](labs/lab02-solidity-setup/#setup-pe-mac) (MetaMask, Infura, keystore-ul `sepolia-dev`, `.env`). Lab 7 are nevoie și de Node.js și de MetaMask pe rețeaua anvil: [pașii lui](labs/lab07-shop-dapp/#setup-pe-mac).
 
 La fiecare push, GitHub Actions rulează `forge test` pentru labs 4–7. Badge-ul verde de sus înseamnă că toate cele 141 de teste trec.
 
