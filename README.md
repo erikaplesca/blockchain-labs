@@ -20,7 +20,7 @@
 
 aici țin laboratoarele de Blockchain, *rezolvate pas cu pas, cu câte un raport pentru fiecare.*
 
-Sunt Erika. Am început laboratoarele din urmă, așa că am vrut ca fiecare să rămână curat: enunțul, codul primit, soluția mea, testele care o dovedesc și un `RAPORT.md` cu răspunsurile la toate întrebările. Dacă ești coleg și vrei să vezi cum am rezolvat ceva, ești în locul potrivit.
+Am vrut ca fiecare să rămână curat: enunțul, codul primit, soluția mea, testele care o dovedesc și un `RAPORT.md` cu răspunsurile la toate întrebările. Dacă ești coleg și vrei să vezi cum am rezolvat ceva, ești în locul potrivit.
 
 ## Unde sunt
 
