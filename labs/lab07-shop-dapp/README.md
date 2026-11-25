@@ -2,7 +2,7 @@
 
 # Lab 07 · *Contractul ajunge în browser*
 
-![stare](https://img.shields.io/badge/stare-4%2F4%20%C2%B7%20screenshots-855712?style=flat-square) ![teste](https://img.shields.io/badge/teste-4%20passing-2c6649?style=flat-square) ![stack](https://img.shields.io/badge/React%2019%20%2B%20ethers%20v6-1f2a48?style=flat-square)
+![stare](https://img.shields.io/badge/stare-4%2F4%20gata-2c6649?style=flat-square) ![teste](https://img.shields.io/badge/teste-4%20passing-2c6649?style=flat-square) ![stack](https://img.shields.io/badge/React%2019%20%2B%20ethers%20v6-1f2a48?style=flat-square)
 
 O pagină React care citește starea lui `FidelityPoints`, trimite tranzacții prin MetaMask și se actualizează singură din events.
 
@@ -11,7 +11,7 @@ O pagină React care citește starea lui `FidelityPoints`, trimite tranzacții p
 | **raportul meu** | [`RAPORT.md`](RAPORT.md) |
 | enunțul | [`enunt.md`](enunt.md) |
 | codul primit | [`starter/`](starter/) (demo-dapp-ul de la care am pornit) |
-| ce rămâne | 8 screenshots în raport |
+| screenshots | 20, pentru fiecare pas din enunț și fiecare exercițiu |
 
 **Ce am făcut:**
 

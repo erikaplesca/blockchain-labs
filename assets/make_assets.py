@@ -17,10 +17,10 @@ STATUS = [
     ("04", "Contract", "interaction", "almost", "7/8 · Sepolia"),
     ("05", "ERC-20", "tokens", "done", "gata"),
     ("06", "Ether &", "re-entrancy", "done", "gata"),
-    ("07", "Shop", "dApp", "almost", "4/4 · screenshots"),
+    ("07", "Shop", "dApp", "done", "gata"),
     ("08", "Lab 8", "", "next", "urmează"),
 ]
-UPDATED = "24 nov 2026"
+UPDATED = "25 nov 2026"
 
 THEMES = {
     "light": dict(

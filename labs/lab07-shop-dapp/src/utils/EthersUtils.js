@@ -166,6 +166,12 @@ const getErrorMessage = (error) => {
     if (decoded && ERROR_MESSAGES[decoded.name]) {
         return ERROR_MESSAGES[decoded.name](decoded.args ?? []);
     }
+    // ethers wraps MetaMask errors it cannot classify ("could not coalesce error");
+    // the real reason is the inner JSON-RPC error.
+    const inner = error?.error?.data?.message || error?.error?.message;
+    if (error?.shortMessage === 'could not coalesce error' && inner) {
+        return `MetaMask: ${inner}`;
+    }
     return error?.shortMessage || error?.reason || error?.message || "Unknown error";
 };
 

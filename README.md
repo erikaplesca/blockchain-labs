@@ -26,12 +26,12 @@ Am vrut ca fiecare să rămână curat: enunțul, codul primit, soluția mea, te
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/progress-dark.svg">
-  <img src="assets/progress-light.svg" alt="Progres: setup gata; labs 1–3 de recuperat; lab 4 7/8 (rămâne Sepolia); labs 5 și 6 gata; lab 7 gata, fără screenshots; lab 8 urmează" width="100%">
+  <img src="assets/progress-light.svg" alt="Progres: setup gata; labs 1–3 de recuperat; lab 4 7/8 (rămâne Sepolia); labs 5 și 6 gata; lab 7 gata; lab 8 urmează" width="100%">
 </picture>
 
 `acum · între lab 07 și lab 08`
 
-Labs 5 și 6 sunt complete. La Lab 4 mai am Ex 8 (deploy pe Sepolia), pentru care îmi trebuie setup-ul din Lab 2: MetaMask, Infura și ether de test. La Lab 7 codul e gata, mai pun cele 8 screenshots în raport. Labs 1–3 le recuperez. Lab 1 e un exercițiu de echipă, iar conceptele din Lab 3 le-am folosit deja în Lab 4.
+Labs 5, 6 și 7 sunt complete. La Lab 7 am rulat aplicația cu două ferestre, una pentru admin și una pentru client, și am pus în raport câte un screenshot pentru fiecare pas. La Lab 4 mai am Ex 8 (deploy pe Sepolia), pentru care îmi trebuie setup-ul din Lab 2: MetaMask, Infura și ether de test. Labs 1–3 le recuperez. Lab 1 e un exercițiu de echipă, iar conceptele din Lab 3 le-am folosit deja în Lab 4.
 
 ## Laboratoarele
 
@@ -44,7 +44,7 @@ Labs 5 și 6 sunt complete. La Lab 4 mai am Ex 8 (deploy pe Sepolia), pentru car
 | `04` | [**Contract interaction**](labs/lab04-contract-interaction/): redeem, events, errors, gas | 🟡 7 / 8 | [raport](labs/lab04-contract-interaction/RAPORT.md) | 41 |
 | `05` | [**ERC-20 tokens**](labs/lab05-erc20-tokens/): OpenZeppelin, FPT, taxă pe transfer | 🟢 2 / 2 | [raport](labs/lab05-erc20-tokens/RAPORT.md) | 58 |
 | `06` | [**Ether & re-entrancy**](labs/lab06-ether-reentrancy/): receive, fallback, pull over push | 🟢 4 / 4 | [raport](labs/lab06-ether-reentrancy/RAPORT.md) | 38 |
-| `07` | [**Shop dApp**](labs/lab07-shop-dapp/): React + ethers v6 + MetaMask | 🟡 4 / 4, fără screenshots | [raport](labs/lab07-shop-dapp/RAPORT.md) | 4 |
+| `07` | [**Shop dApp**](labs/lab07-shop-dapp/): React + ethers v6 + MetaMask | 🟢 4 / 4 | [raport](labs/lab07-shop-dapp/RAPORT.md) | 4 |
 
 ## Povestea contractului
 

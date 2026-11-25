@@ -56,8 +56,8 @@
   <rect x="1056" y="300" width="46" height="46" rx="11" fill="#1f2a48" fill-opacity="1" stroke="none" stroke-opacity="0" stroke-width="1.5"/>
   <text x="1079.0" y="328.0" text-anchor="middle" font-family="'DM Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#f4f3f0">06</text>
   <line x1="1102" y1="323.0" x2="1120" y2="323.0" stroke="#141414" stroke-opacity=".35" stroke-width="2"/>
-  <rect x="1120" y="300" width="46" height="46" rx="11" fill="#f3c6a8" fill-opacity=".95" stroke="none" stroke-opacity="0" stroke-width="1.5"/>
-  <text x="1143.0" y="328.0" text-anchor="middle" font-family="'DM Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#141414">07</text>
+  <rect x="1120" y="300" width="46" height="46" rx="11" fill="#1f2a48" fill-opacity="1" stroke="none" stroke-opacity="0" stroke-width="1.5"/>
+  <text x="1143.0" y="328.0" text-anchor="middle" font-family="'DM Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#f4f3f0">07</text>
 
   </g>
 </svg>

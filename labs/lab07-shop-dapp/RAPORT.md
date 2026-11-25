@@ -33,7 +33,65 @@ Scriptul de deploy scrie adresa și ABI-ul în `src/contracts/`, iar de acolo le
 ![Setup: teste și deploy](screenshots/setup-deploy.png)
 ![Setup: deploy reușit](screenshots/setup-deploy-2.png)
 
-<!-- screenshot: screenshots/setup-page.png -->
+![Pagina conectată cu admin-ul: badge Admin, 0 puncte, formularul Grant points](screenshots/setup-page.png)
+
+Ca admin văd badge-ul **Admin** și formularul **Grant points**. Soldul e 0, pentru că nimeni nu mi-a dat puncte: constructorul nu dă puncte admin-ului.
+
+**Ce am observat la setup:**
+
+- **Aceeași adresă după restart:** după restartul lui anvil, contractul a primit tot `0x5FbD…0aa3`. Adresa se calculează din `keccak256(rlp(deployer, nonce))`, iar contul 0 are din nou nonce 0, deci `addresses.json` rămâne valid.
+- **Al doilea Connect:** la primul Connect, MetaMask a schimbat rețeaua pe Anvil, iar pagina s-a resetat la butonul Connect (evenimentul `chainChanged`). La al doilea Connect a mers.
+- **Problemă pe Mac:** proiectul e pe Desktop, care se sincronizează cu iCloud. Cu discul aproape plin, iCloud scosese de pe disc o parte din `node_modules`, iar Vite rămânea blocat și pagina era albă. Am rezolvat cu `rm -rf node_modules && npm install`.
+- **Prima tranzacție a dat eroare:** `could not coalesce error`. E un mesaj generic al lui ethers, care ascunde eroarea MetaMask din interior. Am făcut `getErrorMessage` să afișeze eroarea interioară, iar motivul real era *„The requested account and/or method has not been authorized by the user”* (4100). Site-ul primise permisiune doar pe rețeaua pe care eram la primul Connect, nu și pe Anvil. Am rezolvat prin deconectarea site-ului din MetaMask și o conectare nouă, cu Anvil bifat la *Networks*.
+
+---
+
+## Pasul 6: Subscripția la events
+
+Două ferestre deschise în paralel: `127.0.0.1:5173` cu **admin-ul** și `localhost:5173` cu **clientul**. MetaMask ține minte câte un cont pentru fiecare site, iar pentru el cele două adrese sunt site-uri diferite.
+
+![Două ferestre: admin (stânga), client (dreapta)](screenshots/pas6-doua-ferestre.png)
+
+**6.2: admin-ul dă 100 de puncte din pagină.** MetaMask cere confirmarea tranzacției: rețeaua e Anvil, cererea vine de la `127.0.0.1:5173`, iar contractul apelat e `0x5FbDB…80aa3`.
+
+![Confirmarea în MetaMask](screenshots/pas6-confirm.png)
+
+Fereastra clientului a trecut de la 0 la **100 de puncte** (valoare 1000) fără reload, iar în *Points received* a apărut `+100 points · block 2`. Schimbarea nu e instantă, ci vine **câteva secunde** după ce tranzacția e minată. Provider-ul face polling la 4 secunde, deci așteaptă următoarea întrebare către nod. În terminalul lui anvil se vede: `eth_blockNumber`, apoi câte un `eth_getLogs` pentru fiecare filtru.
+
+![Clientul are 100 de puncte, fără reload](screenshots/pas6-100-points.png)
+
+**6.4: încă 50 de puncte, din terminal.**
+
+```bash
+cast send $FP "addPoints(address,uint256)" 0x7099…79C8 50 --private-key 0xac09…ff80 --rpc-url http://127.0.0.1:8545
+# status 1 (success), block 3, gas used 35929
+```
+
+![cast send în terminal; anvil minează blocul 3](screenshots/pas6-cast-send.png)
+
+Fereastra clientului s-a actualizat la fel: **150 de puncte** (valoare 1500), iar în istoric apare `+50 points · block 3` deasupra lui `+100 · block 2`. Tranzacția n-a trecut nici prin pagină, nici prin MetaMask, dar log-ul `PointsAdded` e același, oricine ar fi trimis tranzacția. Pagina reacționează la **eveniment**, nu la buton.
+
+Gas-ul e mult mai mic decât la deploy (35.929 față de 330.089). Aici se modifică doar două sloturi de storage (`points[client]` și totalul) și se emite un log. Deploy-ul scrie tot codul contractului.
+
+![Clientul are 150, istoricul are 2 intrări](screenshots/pas6-cast-client.png)
+
+**6.5: puncte pentru o a treia adresă** (contul 2 din anvil, `0x3C44…93BC`, 30 de puncte). Tranzacția intră în blocul 4, dar fereastra clientului **nu se schimbă**: rămâne la 150 de puncte, cu ultimul bloc afișat 3 și istoricul cu 2 rânduri. În anvil se vede polling-ul (`eth_blockNumber`, `eth_getLogs` × n), dar niciun `eth_call` pentru soldul clientului. **Nodul filtrează:** `eth_getLogs` cere doar logs cu topic-ul `0x7099…`, iar log-ul pentru `0x3C44…` nu se potrivește. Pagina nu primește nimic, deci nu recitește nimic.
+
+![cast send pentru a treia adresă; polling-ul în anvil](screenshots/pas6-third-address-terminal.png)
+![Clientul rămâne la 150, blocul 3](screenshots/pas6-third-address-client.png)
+
+**6.6: clientul încearcă `addPoints` cu propria cheie.**
+
+```
+Error: Failed to estimate gas: ... execution reverted: custom error 0x17a84242: ...70997970c5...
+  : NotAdmin(0x70997970C51812dc3A010C7d01b50e0d17dc79C8)
+```
+
+- **Revert la estimare:** `cast` face întâi `eth_estimateGas`, simularea pică cu revert, iar tranzacția **nici nu se trimite**. Nonce-ul clientului rămâne `0x0` și nu se plătește gas.
+- **Eroarea:** `0x17a84242` e selectorul erorii `NotAdmin(address)`, iar argumentul e adresa clientului. `cast` o decodează pentru că are ABI-ul în proiect.
+- **Formularul ascuns nu protejează nimic:** clientul nu vede formularul în pagină, dar poate apela contractul direct. Protecția e modifier-ul `onlyAdmin` din contract.
+
+![NotAdmin la cast send cu cheia clientului](screenshots/pas6-notadmin.png)
 
 ---
 
@@ -68,12 +126,14 @@ Ca admin-ul să poată schimba valoarea din pagină, am adăugat în `AdminPanel
 
 | Moment | Puncte | Valoare punct | Valoare afișată |
 |---|---|---|---|
-| după `addPoints(client, 100)` | 100 | 10 | **1.000** |
-| admin-ul face `setPointValue(20)` | 100 | 20 | **2.000**, în fereastra clientului, fără reload |
+| după `addPoints` 100 + 50 (Pasul 6) | 150 | 10 | **1.500** |
+| admin-ul face `setPointValue(20)` (blocul 5) | 150 | 20 | **3.000**, în fereastra clientului, fără reload |
 
-<!-- screenshot: screenshots/ex1-value-before.png -->
+![Înainte: 150 × 10 = 1500](screenshots/ex1-value-before.png)
 
-<!-- screenshot: screenshots/ex1-value-after.png -->
+![După setPointValue(20): admin-ul vede „Point value set to 20 (block 5)”, clientul vede 150 × 20 = 3000](screenshots/ex1-value-after.png)
+
+Evenimentul a ajuns la **ambele** ferestre. Filtrul `PointValueChanged()` nu conține nicio adresă, deci toți cei abonați primesc log-ul. Soldul clientului (150) nu s-a schimbat, doar valoarea unui punct. Pagina a recitit `getTotalValue` la blocul 5.
 
 ---
 
@@ -93,9 +153,11 @@ const getPointsHistory = async (client) => {
 - **Evenimentele noi** vin din subscripția deja existentă. Am modificat `subscribeToPointsChanges` ca, la `PointsAdded`, să trimită pe lângă numărul blocului și detaliile log-ului, pe care pagina le adaugă în listă.
 - **Fără duplicate:** același log ar putea veni și din `queryFilter`, și din subscripție, dacă evenimentul apare chiar în timp ce pagina se încarcă. De aceea fiecare intrare are un id unic, `txHash + "-" + logIndex`, iar pagina ignoră id-urile pe care le are deja.
 
-Rezultat: după reload, istoricul e tot acolo, pentru că vine din logs, nu din memoria paginii. Punctele date altui cont nu apar în lista mea.
+Rezultat: după reload, istoricul e tot acolo, pentru că vine din logs, nu din memoria paginii. Punctele date altui cont nu apar în lista mea. De exemplu, cele 30 de puncte pentru `0x3C44…` din Pasul 6.5 nu apar.
 
-<!-- screenshot: screenshots/ex2-history.png -->
+Logs nu sunt în storage-ul contractului. Contractul ține doar soldul curent (`points[client]`), nu și istoricul. Logs sunt salvate de nod în receipt-urile tranzacțiilor: sunt mai ieftine decât storage-ul, dar un contract nu le poate citi. Doar cei din afară le pot citi, cu `eth_getLogs`.
+
+![Istoricul: +50 în blocul 3, +100 în blocul 2](screenshots/ex2-history.png)
 
 ---
 
@@ -107,15 +169,15 @@ Rezultat: după reload, istoricul e tot acolo, pentru că vine din logs, nu din 
 
 **Ce se întâmplă dacă clientul cheltuie mai mult decât are?**
 
-> `spendPoints` face `points[msg.sender] -= _points`. În Solidity 0.8 scăderea e verificată, deci 70 − 1000 dă revert cu **`Panic(0x11)`** (underflow).
+> `spendPoints` face `points[msg.sender] -= _points`. În Solidity 0.8 scăderea e verificată, deci 120 − 700 dă revert cu **`Panic(0x11)`** (underflow).
 >
 > - **Tranzacția nici nu se trimite.** Înainte să o semneze, MetaMask (prin ethers) face `eth_estimateGas`, iar estimarea pică. Clientul **nu plătește gas** și starea nu se schimbă.
 > - În pagină, eroarea vine cu error data `0x4e487b71…11`. Am adăugat în `getErrorMessage` decodarea pentru `Panic`, așa că pagina afișează *"You don't have enough points (the subtraction underflowed: Panic 0x11)."*
 > - Contractul din proiect nu are o eroare custom pentru asta, de aceea apare un `Panic`. Cu un `if (available < amount) revert InsufficientPoints(...)` (ca la Lab 4, Ex 7.2), mesajul ar putea spune și câte puncte are clientul.
 
-<!-- screenshot: screenshots/ex3-spend-ok.png -->
+![30 points spent (block 6): 150 → 120, valoarea 120 × 20 = 2400](screenshots/ex3-spend-ok.png)
 
-<!-- screenshot: screenshots/ex3-spend-too-much.png -->
+![Spend 700 cu doar 120 de puncte: mesajul pentru Panic 0x11](screenshots/ex3-spend-too-much.png)
 
 ---
 
@@ -137,21 +199,32 @@ Ca să se vadă efectul, în josul paginii afișez **numărul de subscripții ac
 
 **Ce se întâmplă:** în `Points.jsx`, `<Dashboard key={wallet.address} …/>` creează un Dashboard **nou** la fiecare schimbare de cont. Cel vechi e scos de pe ecran, iar React îi rulează funcția de cleanup din `useEffect`. Fără `off`, cleanup-ul nu mai oprește nimic, iar subscripțiile Dashboard-ului vechi rămân active.
 
-Am măsurat cu un test al funcțiilor din `EthersUtils.js` pe un anvil separat:
+**Ce am observat în browser** (în fereastra `localhost`, cu `UNSUBSCRIBE_ON_CLEANUP = false`):
 
-| | cu `off` | fără `off`, după 4 schimbări de cont |
-|---|---|---|
-| subscripții active (`listenerCount`) | 6 | **17** |
-| cereri `eth_getFilterChanges` la fiecare polling (4 s) | 3 | **5** |
-| apelări ale handler-ului pentru **un** `PointValueChanged` | 1 | **4** |
+| moment | `active subscriptions` |
+|---|---|
+| la început (cu `off` sau fără, înainte de orice schimbare) | 6 |
+| după prima schimbare de cont (client → admin) | **9** |
+| după mai multe schimbări, înapoi pe client | **17** |
 
-<!-- screenshot: screenshots/ex4-subscriptions.png -->
+La fiecare schimbare, cele 3 subscripții ale Dashboard-ului vechi rămân active: `PointsAdded(cont)`, `PointsSpent(cont)` și `PointValueChanged()`. Am verificat înainte și cu un test al funcțiilor din `EthersUtils.js`, pe un anvil separat, și am obținut tot 6 → 17 după 4 schimbări.
 
-<!-- screenshot: screenshots/ex4-anvil-requests.png -->
+![active subscriptions: 17 după schimbările de cont](screenshots/ex4-subscriptions.png)
+
+**Cât timp nu apare un bloc nou, nu se vede aproape nimic.** Provider-ul întreabă la 4 secunde doar `eth_blockNumber`. Anvil face blocuri doar când primește tranzacții, deci subscripțiile în plus nu generează cereri. Vedeam doar `eth_blockNumber` repetat, plus cererile Dashboard-ului nou la fiecare schimbare (`eth_call` ×3, `eth_getLogs`, `eth_getCode`).
+
+![anvil fără blocuri noi: doar eth_blockNumber](screenshots/ex4-anvil-idle.png)
+
+**Cu un bloc nou se vede scurgerea.** Admin-ul a făcut `setPointValue(25)` (blocul 7). În anvil a apărut un șir lung de `eth_getLogs`, câte unul pentru fiecare filtru, inclusiv cele vechi, apoi multe `eth_call`. Fiecare handler vechi recitește soldul, valoarea și `pointValue`, chiar dacă nu mai e pe ecran.
+
+![După setPointValue(25): admin-ul vede blocul 7](screenshots/ex4-after-event.png)
+![anvil după blocul 7: multe eth_getLogs și eth_call](screenshots/ex4-anvil-requests.png)
+
+**Nu toate cererile sunt ale paginii.** Liniile `RPC request failed` cu `0x01ffc9a7…` (`supportsInterface`, verificare ERC-721/1155), `0x95d89b41` (`symbol()`) și `0x313ce567` (`decimals()`) vin de la **MetaMask**. După o tranzacție, MetaMask verifică dacă contractul e un token sau un NFT, ca să o afișeze frumos în *Activity*. `FidelityPoints` nu are funcțiile astea, deci apelurile dau revert.
 
 **Explicație:**
 
-- **Provider-ul face polling:** la fiecare 4 secunde întreabă nodul dacă sunt logs noi pentru **fiecare filtru**. Filtrele vechi (`PointsAdded(contulVechi)` etc.) rămân în listă, deci cererile se înmulțesc cu fiecare cont prin care am trecut. ethers grupează listenerii cu același filtru, de aceea cererile cresc mai încet decât numărul de subscripții.
+- **Provider-ul face polling:** la fiecare 4 secunde întreabă `eth_blockNumber`, iar la fiecare bloc nou cere `eth_getLogs` pentru **fiecare filtru**. Filtrele vechi (`PointsAdded(contulVechi)` etc.) rămân în listă, deci cererile se înmulțesc cu fiecare cont prin care am trecut. ethers grupează listenerii cu același filtru, de aceea cererile cresc mai încet decât numărul de subscripții.
 - **Handler-ele vechi rulează și ele:** un singur event apelează handler-ul tuturor Dashboard-urilor vechi. Fiecare recitește soldul din contract (`eth_call`), chiar dacă rezultatul e aruncat, pentru că `active = false` pe un Dashboard care nu mai e pe ecran. Asta înseamnă cereri degeaba.
 - **Asta e un memory/request leak:** cu cât schimbi contul de mai multe ori, cu atât pagina face mai multe cereri. Se oprește doar la reload.
 - **React StrictMode agravează problema.** În modul dev, StrictMode montează fiecare componentă de 2 ori, ca să prindă exact astfel de greșeli. Fără `off`, chiar de la prima încărcare rămâne o subscripție în plus.
